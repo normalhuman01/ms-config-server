@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    image: bootcamp/ms-config-server
+    container_name: msconfigserver
+    ports:
+      - "${APP_PORT:-8090}:${APP_PORT_CONTAINER:-8081}"
+    environment:
+      SERVER_PORT: $APP_PORT_CONTAINER
+      LOG_PATH: $LOG_PATH
+      REPO_CONFIG_FILES: $REPO_CONFIG_FILES
+      CLIENT_USER: $CLIENT_USER
+      CLIENT_PWD: $CLIENT_PWD
+    networks:
+      - main-network
+      
+networks:
+  main-network:
+    external:
+      name: $NETWORK_NAME
